@@ -117,9 +117,42 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
+        int[] temp = new int[right - left + 1];
+        int i = left, j = mid + 1, k1 = 0;
 
-        return;
+        // First, copy all numbers divisible by k to the temp array
+        while (i <= mid && arr[i] % k == 0) {
+            temp[k1++] = arr[i++];
+        }
+        while (j <= right && arr[j] % k == 0) {
+            temp[k1++] = arr[j++];
+        }
 
+        // merge the remaining elements, considering divisibility by k
+        while (i <= mid && j <= right) {
+            if (arr[i] % k == 0) {
+                temp[k1++] = arr[i++];
+            } else if (arr[j] % k == 0) {
+                temp[k1++] = arr[j++];
+            } else if (arr[i] < arr[j]) {
+                temp[k1++] = arr[i++];
+            } else {
+                temp[k1++] = arr[j++];
+            }
+        }
+
+        // Copy any remaining elements
+        while (i <= mid) {
+            temp[k1++] = arr[i++];
+        }
+        while (j <= right) {
+            temp[k1++] = arr[j++];
+        }
+
+        // Copy the merged array back to the original array
+        for (int p = 0; p < temp.length; p++) {
+            arr[left + p] = temp[p];
+        }
     }
 
 
