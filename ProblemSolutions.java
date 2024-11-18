@@ -41,7 +41,23 @@ public class ProblemSolutions {
             // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
             // "SELECTION SORT" ALGORITHM.
             // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            int minNum = i;
 
+            // Find the minimum/maximum element in unsorted array
+            for (int j = i + 1; j < n; j++) {
+                if (ascending) {
+                    if (values[j] < values[minNum])
+                        minNum = j;
+                } else {
+                    if (values[j] > values[minNum])
+                        minNum = j;
+                }
+            }
+
+            // Swap the found minimum/maximum element with the first element
+            int temp = values[minNum];
+            values[minNum] = values[i];
+            values[i] = temp;
         }
 
     } // End class selectionSort
