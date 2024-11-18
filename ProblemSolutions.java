@@ -204,8 +204,19 @@ public class ProblemSolutions {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        Arrays.sort(asteroids);
 
-        return false;
+        for (int asteroid : asteroids) {
+            if (mass < asteroid) {
+                return false;
+
+            }
+            mass += asteroid;
+        }
+
+        return true;
+
+
 
     }
 
