@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Daniel Duvic / 001
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
@@ -34,9 +34,9 @@ public class ProblemSolutions {
 
     public static void selectionSort(int[] values, boolean ascending ) {
 
-        int n = values.length;
+        int tmpeLen = values.length;
 
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < tmpeLen - 1; i++) {
 
             // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
             // "SELECTION SORT" ALGORITHM.
@@ -44,7 +44,7 @@ public class ProblemSolutions {
             int minNum = i;
 
             // Find the minimum/maximum element in unsorted array
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i + 1; j < tmpeLen; j++) {
                 if (ascending) {
                     if (values[j] < values[minNum])
                         minNum = j;
@@ -106,7 +106,7 @@ public class ProblemSolutions {
      * The merging portion of the merge sort, divisible by k first
      */
 
-    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
+    private void mergeDivisbleByKFirst(int[] arr, int k, int left, int mid, int right)
     {
         // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
         // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
@@ -118,41 +118,41 @@ public class ProblemSolutions {
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
         int[] temp = new int[right - left + 1];
-        int i = left, j = mid + 1, k1 = 0;
+        int i = left;
+        int j = mid + 1;
+        int kOne = 0;
 
         // First, copy all numbers divisible by k to the temp array
         while (i <= mid && arr[i] % k == 0) {
-            temp[k1++] = arr[i++];
+            temp[kOne++] = arr[i++];
         }
         while (j <= right && arr[j] % k == 0) {
-            temp[k1++] = arr[j++];
+            temp[kOne++] = arr[j++];
         }
 
         // merge the remaining elements, considering divisibility by k
         while (i <= mid && j <= right) {
             if (arr[i] % k == 0) {
-                temp[k1++] = arr[i++];
+                temp[kOne++] = arr[i++];
             } else if (arr[j] % k == 0) {
-                temp[k1++] = arr[j++];
+                temp[kOne++] = arr[j++];
             } else if (arr[i] < arr[j]) {
-                temp[k1++] = arr[i++];
+                temp[kOne++] = arr[i++];
             } else {
-                temp[k1++] = arr[j++];
+                temp[kOne++] = arr[j++];
             }
         }
 
         // Copy any remaining elements
         while (i <= mid) {
-            temp[k1++] = arr[i++];
+            temp[kOne++] = arr[i++];
         }
         while (j <= right) {
-            temp[k1++] = arr[j++];
+            temp[kOne++] = arr[j++];
         }
 
         // Copy the merged array back to the original array
-        for (int p = 0; p < temp.length; p++) {
-            arr[left + p] = temp[p];
-        }
+        System.arraycopy(temp, 0, arr, left, temp.length);
     }
 
 
@@ -206,12 +206,12 @@ public class ProblemSolutions {
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
         Arrays.sort(asteroids);
 
-        for (int asteroid : asteroids) {
-            if (mass < asteroid) {
+        for (int tempAsteroid : asteroids) {
+            if (mass < tempAsteroid) {
                 return false;
 
             }
-            mass += asteroid;
+            mass += tempAsteroid;
         }
 
         return true;
@@ -255,7 +255,9 @@ public class ProblemSolutions {
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
         Arrays.sort(people);
 
-        int left = 0, right = people.length - 1, sledCount = 0;
+        int left = 0;
+        int right = people.length - 1;
+        int sledCount = 0;
         while (left <= right) {
             if (people[left] + people[right] <= limit) {
                 left++;
